@@ -5,7 +5,7 @@ import numpy
 
 def get_train_articles():
     if not os.path.isfile('sgm/articles.json'):
-        print("'articles.json' does not exist. Make sure to run 'smg_reader.py' first.")
+        print("'articles.json' does not exist. Make sure to run 'sgm_reader.py' first.")
         exit(1)
     with open('sgm/articles.json') as json_file:
         return json.load(json_file)['train']

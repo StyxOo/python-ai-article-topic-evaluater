@@ -35,12 +35,14 @@ def get_all_articles(files):
 
 
 def create_train_test_dict(articles):
-    arts = {'train': [], 'test': []}
+    arts = {'train': [], 'test': [], 'unused': []}
     for a in articles:
         if a.attrs['lewissplit'] == 'TRAIN':
             arts['train'].append(a)
-        else:
+        elif a.attrs['lewissplit'] == 'TEST':
             arts['test'].append(a)
+        else:
+            arts['unused'].append(a)
     return arts
 
 
