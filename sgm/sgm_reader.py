@@ -47,11 +47,13 @@ def create_train_test_dict(articles):
 
 
 def convert_soups(article_dict):
-    new_dict = arts = {'train': [], 'test': []}
+    new_dict = arts = {'train': [], 'test': [], 'unused': []}
     for a in article_dict['train']:
         new_dict['train'].append(str(a))
     for a in article_dict['test']:
         new_dict['test'].append(str(a))
+    for a in article_dict['unused']:
+        new_dict['unused'].append(str(a))
     return new_dict
 
 
