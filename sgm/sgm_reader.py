@@ -29,7 +29,6 @@ def get_articles(file):
 def get_all_articles(files):
     articles = []
     for file in files:
-
         articles += get_articles(file)
     return articles
 
@@ -37,24 +36,41 @@ def get_all_articles(files):
 def create_train_test_dict(articles):
     arts = {'train': [], 'test': [], 'unused': []}
     for a in articles:
-        if a.attrs['lewissplit'] == 'TRAIN':
-            arts['train'].append(a)
-        elif a.attrs['lewissplit'] == 'TEST':
-            arts['test'].append(a)
-        else:
-            arts['unused'].append(a)
+        info = read_article_info(a)
+        if info is not None:
+            if a.attrs['lewissplit'] == 'TRAIN':
+                arts['train'].append(info)
+            elif a.attrs['lewissplit'] == 'TEST':
+                arts['test'].append(info)
+            else:
+                arts['unused'].append(info)
     return arts
 
 
-def convert_soups(article_dict):
-    new_dict = arts = {'train': [], 'test': [], 'unused': []}
-    for a in article_dict['train']:
-        new_dict['train'].append(str(a))
-    for a in article_dict['test']:
-        new_dict['test'].append(str(a))
-    for a in article_dict['unused']:
-        new_dict['unused'].append(str(a))
-    return new_dict
+def get_topics(soup):
+    topic_tag = soup.find('topics')
+    topics = []
+    for topic in topic_tag.contents:
+        topics.append(str(topic.contents[0]))
+    return topics
+
+
+def get_body(soup):
+    body_tag = soup.find('body')
+    try:
+        return str(body_tag.contents[0])
+    except AttributeError:
+        return None
+
+
+def read_article_info(soup):
+    article_info = {'id': None, 'topics': None, 'body': None}
+    article_info['id'] = soup.attrs['newid']
+    article_info['topics'] = get_topics(soup)
+    article_info['body'] = get_body(soup)
+    if article_info['body'] is None:
+        return None
+    return article_info
 
 
 def write_article_dict(dict):
@@ -69,5 +85,4 @@ if __name__ == '__main__':
     files = find_smg()
     articles = get_all_articles(files)
     article_dict = create_train_test_dict(articles)
-    article_string_dict = convert_soups(article_dict)
-    write_article_dict(article_string_dict)
+    write_article_dict(article_dict)
