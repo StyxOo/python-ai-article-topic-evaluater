@@ -7,7 +7,7 @@ from bs4 import BeautifulSoup
 
 def find_smg():
     files = []
-    for file in os.listdir("./reuters"):
+    for file in os.listdir("reuters"):
         if file.endswith(".sgm"):
             files.append(os.path.join('./reuters', file))
     return files
@@ -54,9 +54,10 @@ def convert_soups(article_dict):
 
 
 def write_article_dict(dict):
-    if os.path.isfile('./articles.json'):
-        os.remove('./articles.json')
-    with open('./articles.json', 'w') as json_file:
+    file_path = os.path.join(os.path.dirname(__file__), './articles.json')
+    if os.path.isfile(file_path):
+        os.remove(file_path)
+    with open(file_path, 'w') as json_file:
         json.dump(dict, json_file)
 
 
@@ -66,4 +67,3 @@ if __name__ == '__main__':
     article_dict = create_train_test_dict(articles)
     article_string_dict = convert_soups(article_dict)
     write_article_dict(article_string_dict)
-    print('Fin')
