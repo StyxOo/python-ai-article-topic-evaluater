@@ -1,0 +1,7 @@
+/parameterization/bag_of_words/bags/
+/parameterization/tf_idf/tf_idfs/
+/parameterization/term_frequency/dicts/
+/parameterization/term_frequency/vectors/
+
+__pycache__/
+*.json
