@@ -11,16 +11,7 @@ def _bag_path(id):
 
 
 def _generate_vector(article, save=False):
-    if not _trained:
-        print("Make sure to train parameterizer first")
-        exit(1)
-
-    vector = []
-    for word in vocabulary.get_words():
-        if word in article['body']:
-            vector.append(1)
-        else:
-            vector.append(0)
+    vector = generate_vector(article['body'])
     if save:
         if not os.path.isdir(os.path.join(os.path.dirname(__file__), './bags')):
             os.mkdir(os.path.join(os.path.dirname(__file__), './bags'))
@@ -40,6 +31,20 @@ def _get_vector(article, force_create=False, save=False):
     else:
         vector = _generate_vector(article, save)
 
+    return vector
+
+
+def generate_vector(text):
+    if not _trained:
+        print("Make sure to train parameterizer first")
+        exit(1)
+
+    vector = []
+    for word in vocabulary.get_words():
+        if word in text:
+            vector.append(1)
+        else:
+            vector.append(0)
     return vector
 
 

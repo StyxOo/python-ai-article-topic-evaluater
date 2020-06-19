@@ -39,7 +39,10 @@ def create_train_test_dict(articles):
         info = read_article_info(a)
         if info is not None:
             if a.attrs['lewissplit'] == 'TRAIN':
-                arts['train'].append(info)
+                if len(info['topics']) > 0:
+                    arts['train'].append(info)
+                else:
+                    arts['test'].append(info)
             elif a.attrs['lewissplit'] == 'TEST':
                 arts['test'].append(info)
             else:
@@ -81,8 +84,12 @@ def write_article_dict(dict):
         json.dump(dict, json_file)
 
 
-if __name__ == '__main__':
+def main():
     files = find_smg()
     articles = get_all_articles(files)
     article_dict = create_train_test_dict(articles)
     write_article_dict(article_dict)
+
+
+if __name__ == '__main__':
+    main()

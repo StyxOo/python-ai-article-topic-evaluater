@@ -80,13 +80,8 @@ def _tf_idf_path(id):
 
 
 def _generate_vector(article, save=False):
-    if not _trained:
-        print("Make sure to train parameterizer first")
-        exit(1)
-    tf = term_frequency.get_vector(article[id])
-    vector = []
-    for i in range(len(tf)):
-        vector.append(tf[i] * _idfs[i])
+    tf = term_frequency._get_vector(article)
+    vector = generate_vector(article['body'], tf)
     if save:
         if not os.path.isdir(os.path.join(os.path.dirname(__file__), './tf_idfs')):
             os.mkdir(os.path.join(os.path.dirname(__file__), './tf_idfs'))
@@ -106,6 +101,18 @@ def _get_vector(article, force_create=False, save=False):
     else:
         vector = _generate_vector(article, save)
 
+    return vector
+
+
+def generate_vector(text, tf=None):
+    if not _trained:
+        print("Make sure to train parameterizer first")
+        exit(1)
+    if tf is None:
+        tf = term_frequency.generate_vector(text)
+    vector = []
+    for i in range(len(tf)):
+        vector.append(tf[i] * _idfs[i])
     return vector
 
 
