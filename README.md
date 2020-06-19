@@ -11,5 +11,6 @@ There are three steps involved to make this work.
  - Preprocessing
  - Parameterization
  - Classification  
+ 
 You can learn more about them in the appropriate folders `README.md` files.  
 All articles in the `articles_rewritten.json` in the `train` dictionary are used for training. If you want to change which articles are used for training, change it there.
