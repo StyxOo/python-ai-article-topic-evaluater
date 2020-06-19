@@ -10,6 +10,11 @@ _stopwords = stopwords.words("english")
 
 
 def _prepare_text(body):
+    """
+    Prepares text for stemming and lammentization
+    :param body: text to prepare
+    :return: prepared text
+    """
     text = body.lower()
     text = text.replace('\n', ' ')
     regex = re.compile('[^a-z ]')
@@ -17,6 +22,11 @@ def _prepare_text(body):
 
 
 def _lemmatize(tagged):
+    """
+    Lemmatize tagged text
+    :param tagged: tagged text
+    :return: lemmatized text
+    """
     tag_dict = {"J": wordnet.ADJ,
                 "N": wordnet.NOUN,
                 "V": wordnet.VERB,
@@ -27,6 +37,11 @@ def _lemmatize(tagged):
 
 
 def get_words_in(body):
+    """
+    Get lemmatized and stemmed words without stopwords in text
+    :param body: text to work with
+    :return: cleaned text
+    """
     prepared_text = _prepare_text(body)
     tokens = nltk.word_tokenize(prepared_text)
     tags = nltk.pos_tag(tokens)

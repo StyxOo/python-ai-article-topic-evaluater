@@ -3,16 +3,33 @@ _words_per_topic = None
 
 
 def _get_percent(part, whole):
+    """
+    Calculate a percent value
+    :param part: part
+    :param whole: whole
+    :return: percent
+    """
     return (part / whole) * 100
 
 
 def _data_total_to_percent(data, total):
+    """
+    Turn total data to percents
+    :param data: data to convert
+    :param total: total to use for conversion
+    :return: data in percent
+    """
     for entry in data:
         data[entry] = _get_percent(data[entry], total)
     return data
 
 
 def _get_topic_data(articles):
+    """
+    Get topic data
+    :param articles: trin articles
+    :return: topic data and total topic count
+    """
     data = {}
     total_topics = 0
     for article in articles:
@@ -26,11 +43,21 @@ def _get_topic_data(articles):
 
 
 def _get_topic_percent_data(articles):
+    """
+    Get topic data in percent
+    :param articles: train articles
+    :return: topic data in percent
+    """
     data, total_topics = _get_topic_data(articles)
     return _data_total_to_percent(data, total_topics)
 
 
 def _get_topic_word_data(articles):
+    """
+    Get word data for each topic
+    :param articles: train articles
+    :return: topic word data
+    """
     data = {}
     for article in articles:
         for topic in article['topics']:
@@ -45,6 +72,11 @@ def _get_topic_word_data(articles):
 
 
 def _get_topic_word_percent_data(articles):
+    """
+    Get topic word data in percent
+    :param articles: train articles
+    :return: topic word data in percent
+    """
     data = _get_topic_word_data(articles)
     for topic in data:
         total_words = 0
@@ -56,6 +88,12 @@ def _get_topic_word_percent_data(articles):
 
 
 def evaluate(articles, text):
+    """
+    Evaluates a text with given train articles
+    :param articles: train articles
+    :param text: text to evaluate
+    :return: topic of text
+    """
     global _topics, _words_per_topic
     _topics = _get_topic_percent_data(articles)
     _words_per_topic = _get_topic_word_percent_data(articles)

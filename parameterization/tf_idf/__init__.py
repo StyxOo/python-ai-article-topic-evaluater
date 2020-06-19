@@ -17,6 +17,12 @@ _trained = False
 
 # Service
 def _add_list_values(a, b):
+    """
+    Add two lists by values
+    :param a: list a
+    :param b: list b
+    :return: added list
+    """
     new_list = []
     for i in range(len(a)):
         new_list.append(a[i] + b[i])
@@ -24,7 +30,12 @@ def _add_list_values(a, b):
 
 
 # Word occurrence
-def _generate_word_occurrences(articles, force_create=False):
+def _generate_word_occurrences(articles):
+    """
+    Get all word occureces
+    :param articles: training articles
+    :return:
+    """
     global _word_occurrences
     _word_occurrences = []
     bag = bag_of_words._get_vector(articles[0])
@@ -37,19 +48,31 @@ def _generate_word_occurrences(articles, force_create=False):
 
 
 def _get_word_occurrences(articles, force_create=False):
+    """
+    Tries to load word occurrences if not otherwise specified
+    :param articles: train article
+    :param force_create: force create new word occurreces
+    :return:
+    """
     global _word_occurrences
     if not force_create:
         if os.path.isfile(_word_occurrences_path):
             with open(_word_occurrences_path) as json_file:
                 _word_occurrences = json.load(json_file)
         else:
-            _generate_word_occurrences(articles, force_create)
+            _generate_word_occurrences(articles)
     else:
-        _generate_word_occurrences(articles, force_create)
+        _generate_word_occurrences(articles)
 
 
 # IDF
 def _generate_idfs(articles, force_create=False):
+    """
+    Generates idfs. Will load existing is possible
+    :param articles: articles for which idfs should be created
+    :param force_create: Force creationg of a new vector
+    :return:
+    """
     _get_word_occurrences(articles, force_create)
     global _idfs
     _idfs = []
@@ -63,6 +86,12 @@ def _generate_idfs(articles, force_create=False):
 
 
 def _get_idfs(articles, force_create=False):
+    """
+    Tries to get a idfs. Will load existing is possible
+    :param articles: articles for which idfs should be created
+    :param force_create: Force creationg of a new vector
+    :return:
+    """
     global _idfs
     if not force_create:
         if os.path.isfile(_idfs_path):
@@ -76,10 +105,21 @@ def _get_idfs(articles, force_create=False):
 
 # TF-IDF
 def _tf_idf_path(id):
+    """
+    Get path to a tf_idf save location with given id
+    :param id: id of article
+    :return: path to stored bag
+    """
     return os.path.join(os.path.dirname(__file__), './tf_idfs/{0}.json'.format(id))
 
 
 def _generate_vector(article, save=False):
+    """
+    Create a new vector and store it
+    :param article: article for which to create vector
+    :param save: Should vector be saved?
+    :return: returns the vector
+    """
     tf = term_frequency._get_vector(article)
     vector = generate_vector(article['body'], tf)
     if save:
@@ -92,6 +132,13 @@ def _generate_vector(article, save=False):
 
 
 def _get_vector(article, force_create=False, save=False):
+    """
+    Tries to get a vector for an article. Will load existing vector is possible
+    :param article: article for which vector should be created
+    :param force_create: Force creationg of a new vector
+    :param save: Should the vector be saved
+    :return: article vector
+    """
     if not force_create:
         if os.path.isfile(_tf_idf_path(article['id'])):
             with open(_tf_idf_path(article['id'])) as json_file:
@@ -105,6 +152,12 @@ def _get_vector(article, force_create=False, save=False):
 
 
 def generate_vector(text, tf=None):
+    """
+    Generates a vector for a given text
+    :param text: text to turn into vector
+    :param tf: term frequency for text
+    :return: vector for text
+    """
     if not _trained:
         print("Make sure to train parameterizer first")
         exit(1)
@@ -117,6 +170,12 @@ def generate_vector(text, tf=None):
 
 
 def train(articles, force_create=False):
+    """
+    Train parameterizer. Makes sure set up is completed. This is required to run before creating vectors
+    :param articles: train set
+    :param force_create: force creation of new vectors
+    :return:
+    """
     global _trained
     # Setup
     bag_of_words.train(articles, force_create)

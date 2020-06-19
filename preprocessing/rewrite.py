@@ -4,6 +4,10 @@ from preprocessing import body_reader
 
 
 def get_articles():
+    """
+    Gets all articles
+    :return: articles
+    """
     if not os.path.isfile('articles.json'):
         print("'articles.json' does not exist. Make sure to run 'sgm_reader.py' first.")
         exit(1)
@@ -12,6 +16,11 @@ def get_articles():
 
 
 def write_article_dict(dict):
+    """
+    Saves rewritten articles
+    :param dict: article dictionary
+    :return:
+    """
     file_path = os.path.join(os.path.dirname(__file__), './articles_rewritten.json')
     if os.path.isfile(file_path):
         os.remove(file_path)
@@ -20,6 +29,10 @@ def write_article_dict(dict):
 
 
 def main():
+    """
+    Main rewriting function. Creates articles_rewritten.json
+    :return:
+    """
     articles = get_articles()
     for category in articles:
         for article in articles[category]:

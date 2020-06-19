@@ -10,6 +10,11 @@ _classifier = None
 
 
 def setup_classifier(name):
+    """
+    Sets up a classifier for use
+    :param name: name of classifier. Choices are: euclid, bayes and rocchio
+    :return:
+    """
     global _classifier, _trained
     if name == "euclid":
         _classifier = name
@@ -26,6 +31,12 @@ def setup_classifier(name):
 
 
 def evaluate(text, articles):
+    """
+    Evaluate a text with given train set using the set up classifier
+    :param text: text to evaluate
+    :param articles: train articles
+    :return: topic
+    """
     if not _trained:
         print("No classifier initialized. Make sure to do so first")
         raise Exception

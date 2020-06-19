@@ -5,48 +5,94 @@ import preprocessing
 import parameterization
 import classification
 
+"""
+this script creates the GUI for the project
+"""
+
 
 def preprocess_callback():
+    """
+    Starts preprocessing
+    :return:
+    """
     preprocessing.process()
 
 
 def set_classifier(name):
+    """
+    Called when a classifier is selected
+    :param name: name of classifier
+    :return:
+    """
     global classifier, selected_classifier_label
     classifier = name.lower()
     selected_classifier_label.configure(text=name)
 
 
 def set_parameterizer(name):
+    """
+    Called when a parameterizer is selected
+    :param name: name of parameterizer
+    :return:
+    """
     global parameterizer
     parameterizer = name.lower()
     selected_parameterizer_label.labelText = name
 
 
 def select_bayes():
+    """
+    Select bayes classifier
+    :return:
+    """
     set_classifier("Bayes")
 
 
 def select_euclid():
+    """
+    Select euclid classifier
+    :return:
+    """
     set_classifier("Euclid")
 
 
 def select_rocchio():
+    """
+    Select rocchio classifier
+    :return:
+    """
     set_classifier("Rocchio")
 
 
 def select_bow():
+    """
+    Select bag of words parameterizer
+    :return:
+    """
     set_parameterizer("BoW")
 
 
 def select_tf():
+    """
+    Select term frequency parameterizer
+    :return:
+    """
     set_parameterizer("TF")
 
 
 def select_tf_idf():
+    """
+    Select tf-idf parameterizer
+    :return:
+    """
     set_parameterizer("TF_IDF")
 
 
 def evaluate():
+    """
+    Called when evaluation should be run
+    :return:
+    """
     if classifier is None:
         print("Make sure to select a classifier")
         return

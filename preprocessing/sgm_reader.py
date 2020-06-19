@@ -6,6 +6,10 @@ from bs4 import BeautifulSoup
 
 
 def find_smg():
+    """
+    finds all sgm files
+    :return: sgm files
+    """
     files = []
     for file in os.listdir("reuters"):
         if file.endswith(".sgm"):
@@ -14,6 +18,11 @@ def find_smg():
 
 
 def read_smg(file):
+    """
+    Convert sgm file to beautiful soup
+    :param file: sgm file
+    :return: soup
+    """
     f = open(file, 'r')
     data = f.read()
     soup = BeautifulSoup(data, features="html.parser")
@@ -21,12 +30,22 @@ def read_smg(file):
 
 
 def get_articles(file):
+    """
+    Gets all articles in a sgm file
+    :param file: sgm file
+    :return: articles
+    """
     soup = read_smg(file)
     articles = soup.find_all('reuters')
     return articles
 
 
 def get_all_articles(files):
+    """
+    Gets all articles in all files
+    :param files: all sgm files
+    :return: articles
+    """
     articles = []
     for file in files:
         articles += get_articles(file)
@@ -34,6 +53,11 @@ def get_all_articles(files):
 
 
 def create_train_test_dict(articles):
+    """
+    Categorize articles into train, test and unused
+    :param articles: articles
+    :return: article dictionary
+    """
     arts = {'train': [], 'test': [], 'unused': []}
     for a in articles:
         info = read_article_info(a)
@@ -51,6 +75,11 @@ def create_train_test_dict(articles):
 
 
 def get_topics(soup):
+    """
+    Get all topics for article
+    :param soup: rticle soup
+    :return: topics
+    """
     topic_tag = soup.find('topics')
     topics = []
     for topic in topic_tag.contents:
@@ -59,6 +88,11 @@ def get_topics(soup):
 
 
 def get_body(soup):
+    """
+    Gets body of article
+    :param soup: article soup
+    :return: body text
+    """
     body_tag = soup.find('body')
     try:
         return str(body_tag.contents[0])
@@ -67,6 +101,11 @@ def get_body(soup):
 
 
 def read_article_info(soup):
+    """
+    Read the information provided about an article
+    :param soup: article soup
+    :return: article information dictionary
+    """
     article_info = {'id': None, 'topics': None, 'body': None}
     article_info['id'] = soup.attrs['newid']
     article_info['topics'] = get_topics(soup)
@@ -77,6 +116,11 @@ def read_article_info(soup):
 
 
 def write_article_dict(dict):
+    """
+    Save article dictionary
+    :param dict: article dictionary
+    :return:
+    """
     file_path = os.path.join(os.path.dirname(__file__), './articles.json')
     if os.path.isfile(file_path):
         os.remove(file_path)
@@ -85,6 +129,10 @@ def write_article_dict(dict):
 
 
 def main():
+    """
+    Main function. performs sgm reading and translating to articles.json
+    :return:
+    """
     files = find_smg()
     articles = get_all_articles(files)
     article_dict = create_train_test_dict(articles)
