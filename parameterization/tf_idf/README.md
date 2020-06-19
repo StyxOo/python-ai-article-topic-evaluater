@@ -1,0 +1,4 @@
+# Term Frequency - Inverted Document Frequency
+
+## What is it?
+The TF-IDF is can be seen as an extension to the term frequency. In fact, the Term-Frequency parameterizer is used to construct the first part of the TF-IDF. the main difference is, that it not only takes the terms occurence per article in account, but it combines it with the chance of the word appearing in an article at all. This is the Inverted document Frequency. It is calculated for each word by log(numberOfDucuments/numberOfDucumentsInWhichWordAppears). to know how many documents we have, We simply count the number of articles provided for training. To get the number of documents in which a word appears, all the Bags of Words are added together. Multiplying the appropriate TF and IDF will give us the TF-IDF.

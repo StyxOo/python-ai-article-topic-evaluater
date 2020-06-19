@@ -8,22 +8,22 @@ _parameterizer_setup = False
 _parameterizer = None
 
 
-def setup_parameterizator(name, articles, force_overwrite=False):
+def setup_parameterizator(name, articles, force_create=False):
     print("Trying to set up parameterizer")
     global _parameterizer_setup, _parameterizer
     if name == "bow":
         print("Setting up bag of words")
-        bag_of_words.train(articles, force_overwrite)
+        bag_of_words.train(articles, force_create)
         _parameterizer_setup = True
         _parameterizer = name
     elif name == "tf":
         print("Setting up term frequency")
-        term_frequency.train(articles, force_overwrite)
+        term_frequency.train(articles, force_create)
         _parameterizer_setup = True
         _parameterizer = name
     elif name == "tf_idf":
         print("Setting up term frequency - inverse document frequency")
-        tf_idf.train(articles, force_overwrite)
+        tf_idf.train(articles, force_create)
         _parameterizer_setup = True
         _parameterizer = name
     else:
