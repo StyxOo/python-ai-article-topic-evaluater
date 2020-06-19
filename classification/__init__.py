@@ -9,7 +9,7 @@ _trained = False
 _classifier = None
 
 
-def setup_classifier(name, articles):
+def setup_classifier(name):
     global _classifier, _trained
     if name == "euclid":
         _classifier = name

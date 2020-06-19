@@ -12,7 +12,7 @@ def evaluate(articles, text):
     smallest_dst = float("inf")
     smallest_topic = None
     for article in articles:
-        dst = _calculate_sqr_distance(parameterization.get_vector_for(text), parameterization.get_vector_for(article))
+        dst = _calculate_sqr_distance(parameterizer.get_vector_for(text), parameterizer.get_vector_for(article))
         if dst < smallest_dst:
             smallest_dst = dst
             smallest_topic = article['topics'][0]

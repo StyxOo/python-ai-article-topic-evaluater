@@ -19,7 +19,7 @@ def _divide_list(a, value):
 def evaluate(articles, text):
     averages = {}
     for article in articles:
-        vector = parameterization.get_vector_for(article)
+        vector = parameterizer.get_vector_for(article)
         for topic in article['topics']:
             if topic not in averages.keys():
                 averages[topic] = []
@@ -30,7 +30,7 @@ def evaluate(articles, text):
             sum = _add_lists(sum, averages[topic][i])
         avg = _divide_list(sum, len(averages[topic]))
         averages[topic] = avg
-    text_vector = parameterization.get_vector_for(text)
+    text_vector = parameterizer.get_vector_for(text)
     closest_dst = float("inf")
     closest_topic = None
     for topic in averages.keys():
