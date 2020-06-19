@@ -11,9 +11,9 @@ def find_smg():
     :return: sgm files
     """
     files = []
-    for file in os.listdir("reuters"):
+    for file in os.listdir(os.path.join(os.path.dirname(__file__), "reuters")):
         if file.endswith(".sgm"):
-            files.append(os.path.join('./reuters', file))
+            files.append(os.path.join(os.path.dirname(__file__), './reuters', file))
     return files
 
 

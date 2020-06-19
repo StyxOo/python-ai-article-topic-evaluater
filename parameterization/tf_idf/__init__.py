@@ -44,7 +44,7 @@ def _generate_word_occurrences(articles):
         bag = bag_of_words._get_vector(articles[i])
         _word_occurrences = _add_list_values(_word_occurrences, bag)
     with open(_word_occurrences_path, 'w') as json_file:
-        json.dump(_word_occurrences)
+        json.dump(_word_occurrences, json_file)
 
 
 def _get_word_occurrences(articles, force_create=False):
@@ -126,7 +126,7 @@ def _generate_vector(article, save=False):
         if not os.path.isdir(os.path.join(os.path.dirname(__file__), './tf_idfs')):
             os.mkdir(os.path.join(os.path.dirname(__file__), './tf_idfs'))
             print("Created directory to store tf_idfs.")
-        with open(_tf_idf_path(article[id]), 'w') as json_file:
+        with open(_tf_idf_path(article['id']), 'w') as json_file:
             json.dump(vector, json_file)
     return vector
 

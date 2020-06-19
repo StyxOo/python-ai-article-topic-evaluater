@@ -8,10 +8,11 @@ def get_articles():
     Gets all articles
     :return: articles
     """
-    if not os.path.isfile('articles.json'):
+    articles_path = os.path.join(os.path.dirname(__file__), './articles.json')
+    if not os.path.isfile(articles_path):
         print("'articles.json' does not exist. Make sure to run 'sgm_reader.py' first.")
         exit(1)
-    with open('articles.json') as json_file:
+    with open(articles_path) as json_file:
         return json.load(json_file)
 
 

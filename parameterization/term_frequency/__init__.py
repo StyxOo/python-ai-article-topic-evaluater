@@ -14,7 +14,7 @@ def _tf_path(id):
     :param id: id of article
     :return: path to stored bag
     """
-    return os.path.join(os.path.dirname(__file__), './vectors/{0}.json'.format(id))
+    return os.path.join(os.path.dirname(__file__), './tfs/{0}.json'.format(id))
 
 
 def _generate_vector(article, save=False):

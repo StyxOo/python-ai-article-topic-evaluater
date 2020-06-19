@@ -37,7 +37,7 @@ def set_parameterizer(name):
     """
     global parameterizer
     parameterizer = name.lower()
-    selected_parameterizer_label.labelText = name
+    selected_parameterizer_label.configure(text=name)
 
 
 def select_bayes():
@@ -111,7 +111,7 @@ def evaluate():
     classification.setup_classifier(classifier)
     text = text_input.get("1.0", END)
     topic = classification.evaluate(text, articles)
-    topic_label.configure(text=topic)
+    topic_label.configure(text="Topic: {0}".format(topic))
 
 
 parameterizer = None
