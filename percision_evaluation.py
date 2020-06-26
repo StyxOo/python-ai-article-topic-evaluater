@@ -19,13 +19,14 @@ if __name__ == '__main__':
 
             total = 0
             correct = 0
-            cap = 2
-            for i in range(len(test_articles)):
+            cap = 25
+            for i in range(5, len(test_articles)):
                 if i > cap:
                     break
                 print("Evaluate article {0}".format(i))
                 a = test_articles[i]
                 topic = classification.evaluate(a['body'], train_articles, True)
+                print("Evaluated topic: '{0}'  Possible topics: '{1}'".format(topic, a['topics']))
                 if topic in a['topics']:
                     correct += 1
                 total += 1

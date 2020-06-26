@@ -113,10 +113,11 @@ def evaluate(articles, text):
     for topic in _topics.keys():
         product = 1
         for i in range(len(text_vector)):
-            if _words_per_topic[topic][i] > 0:
-                product *= _words_per_topic[topic][i]
+            multipy = _words_per_topic[topic][i] * text_vector[i]
+            if multipy > 0:
+                product *= multipy * 100
             else:
-                product *= 1e-15
+                product *= 1
         product *= _topics[topic]
 
         # unique_text = []

@@ -19,10 +19,10 @@ All articles in the `articles_rewritten.json` in the `train` dictionary are used
 The whole program is written using python 3. Furthermore the [bs4](https://pypi.org/project/beautifulsoup4/) as well as [nltk](https://pypi.org/project/nltk/) packages are required.
 
 ## Accuracy
-The following table shows the accuracy for each parameterization and classification combination in percent:
+The following table shows the accuracy for each parameterization and classification combination in percent (Determined by evaluating 30 articles from the test set):
 
  |                    | Bag of Words | Term Frequency | TF-IDF |
- | ------------------ | ------------ | -------------- | ------ |
- | Euclidean Distance |              |                |        |
- | Naive Bayes        |              |                |        |
- | Rocchio            |              |                |        |
+ | -----------------: | :----------: | :------------: | :----: |
+ | Euclidean Distance | 63           | 63             | 52     |
+ | Naive Bayes        | 66           | 66             | 81     |
+ | Rocchio            | 55           | 44             | 63     |
