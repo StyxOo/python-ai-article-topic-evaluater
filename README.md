@@ -14,3 +14,15 @@ There are three steps involved to make this work.
  
 You can learn more about them in the appropriate folders `README.md` files.  
 All articles in the `articles_rewritten.json` in the `train` dictionary are used for training. If you want to change which articles are used for training, change it there.
+
+## Requirements
+The whole program is written using python 3. Furthermore the [bs4](https://pypi.org/project/beautifulsoup4/) as well as [nltk](https://pypi.org/project/nltk/) packages are required.
+
+## Accuracy
+The following table shows the accuracy for each parameterization and classification combination in percent:
+
+ |                    | Bag of Words | Term Frequency | TF-IDF |
+ | ------------------ | ------------ | -------------- | ------ |
+ | Euclidean Distance |              |                |        |
+ | Naive Bayes        |              |                |        |
+ | Rocchio            |              |                |        |

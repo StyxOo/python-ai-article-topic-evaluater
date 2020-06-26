@@ -48,7 +48,7 @@ def evaluate(articles, text):
             sum = _add_lists(sum, averages[topic][i])
         avg = _divide_list(sum, len(averages[topic]))
         averages[topic] = avg
-    text_vector = parameterization.get_vector_for(text)
+    text_vector = parameterization.generate_vector_for(text)
     closest_dst = float("inf")
     closest_topic = None
     for topic in averages.keys():

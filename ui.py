@@ -96,7 +96,7 @@ def evaluate():
     if classifier is None:
         print("Make sure to select a classifier")
         return
-    if parameterizer is None and classifier != 'bayes':
+    if parameterizer is None:
         print("Make sure to select a parameterizer")
         return
 
@@ -106,8 +106,7 @@ def evaluate():
         return
 
     articles = preprocessing.get_train_set()
-    if classifier != "bayes":
-        parameterization.setup_parameterizator(parameterizer, articles)
+    parameterization.setup_parameterizator(parameterizer, articles)
     classification.setup_classifier(classifier)
     text = text_input.get("1.0", END)
     topic = classification.evaluate(text, articles)

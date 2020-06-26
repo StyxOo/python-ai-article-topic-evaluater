@@ -38,10 +38,10 @@ def _generate_word_occurrences(articles):
     """
     global _word_occurrences
     _word_occurrences = []
-    bag = bag_of_words._get_vector(articles[0])
+    bag = bag_of_words.get_vector(articles[0])
     _word_occurrences = bag
     for i in range(1, len(articles)):
-        bag = bag_of_words._get_vector(articles[i])
+        bag = bag_of_words.get_vector(articles[i])
         _word_occurrences = _add_list_values(_word_occurrences, bag)
     with open(_word_occurrences_path, 'w') as json_file:
         json.dump(_word_occurrences, json_file)
@@ -120,7 +120,7 @@ def _generate_vector(article, save=False):
     :param save: Should vector be saved?
     :return: returns the vector
     """
-    tf = term_frequency._get_vector(article)
+    tf = term_frequency.get_vector(article)
     vector = generate_vector(article['body'], tf)
     if save:
         if not os.path.isdir(os.path.join(os.path.dirname(__file__), './tf_idfs')):
@@ -131,7 +131,7 @@ def _generate_vector(article, save=False):
     return vector
 
 
-def _get_vector(article, force_create=False, save=False):
+def get_vector(article, force_create=False, save=False):
     """
     Tries to get a vector for an article. Will load existing vector is possible
     :param article: article for which vector should be created
@@ -183,4 +183,4 @@ def train(articles, force_create=False):
     _get_idfs(articles)
     _trained = True
     for article in articles:
-        _get_vector(article, force_create, True)
+        get_vector(article, force_create, True)

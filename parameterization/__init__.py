@@ -38,7 +38,7 @@ def setup_parameterizator(name, articles, force_create=False):
         exit(1)
 
 
-def get_vector_for(text):
+def generate_vector_for(text):
     """
     Get a new vector for a text using the set up parameterizer
     :param text: Text to get vector for
@@ -54,3 +54,16 @@ def get_vector_for(text):
         return term_frequency.generate_vector(text)
     elif _parameterizer == "tf_idf":
         return tf_idf.generate_vector(text)
+
+
+def get_vector_for(article, force_create=False, save=False):
+    if not _parameterizer_setup:
+        print("No parameterizer set up. Make sure to do so first")
+        exit(1)
+
+    if _parameterizer == "bow":
+        return bag_of_words.get_vector(article, force_create, save)
+    elif _parameterizer == "tf":
+        return term_frequency.get_vector(article, force_create, save)
+    elif _parameterizer == "tf_idf":
+        return tf_idf.get_vector(article, force_create, save)

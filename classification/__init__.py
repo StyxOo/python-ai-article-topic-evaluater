@@ -30,7 +30,7 @@ def setup_classifier(name):
         raise Exception
 
 
-def evaluate(text, articles):
+def evaluate(text, articles, no_preprocess=False):
     """
     Evaluate a text with given train set using the set up classifier
     :param text: text to evaluate
@@ -41,7 +41,8 @@ def evaluate(text, articles):
         print("No classifier initialized. Make sure to do so first")
         raise Exception
 
-    text = body_reader.get_words_in(text)
+    if not no_preprocess:
+        text = body_reader.get_words_in(text)
 
     if _classifier == "euclid":
         return euclidean.evaluate(articles, text)

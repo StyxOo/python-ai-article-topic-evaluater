@@ -32,7 +32,7 @@ def _generate_vector(article, save=False):
     return vector
 
 
-def _get_vector(article, force_create=False, save=False):
+def get_vector(article, force_create=False, save=False):
     """
     Tries to get a vector for an article. Will load existing vector is possible
     :param article: article for which vector should be created
@@ -82,4 +82,4 @@ def train(articles, force_create=False):
     vocabulary.train(articles, force_create)
     _trained = True
     for article in articles:
-        _get_vector(article, force_create, True)
+        get_vector(article, force_create, True)

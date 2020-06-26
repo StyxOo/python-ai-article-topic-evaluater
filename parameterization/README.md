@@ -20,3 +20,5 @@ To make use of one of the parameterizators You can directly hook into it, or mak
 
 After a successfull setup, You can create new vector representations for any text using the `get_vector_for` function.  
 Most of the parameterizers save their results in json, as it takes quite long to set up all the vectors. It will only create new vectors, if a vector for a given article id does not yet exist, or when you set `force_create` to `True` in the setup step.
+
+> NOTE: If You pull changes from the repository or when changing the parameterization algorithms, make sure to remove their results folders to ensure new vectors are created
